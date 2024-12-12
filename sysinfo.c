@@ -38,16 +38,16 @@ int main(void) {
 	void *tmpAddrPtr = NULL;
 	
 	ssd1306_begin(SSD1306_SWITCHCAPVCC, SSD1306_I2C_ADDRESS);
+	sprintf(IpInfo, "eth0:0.0.0.0");
 
-	// char buf_model[64], fd_hardware_num, fd_hardware_model[8], fd_hardware_rev[4], Model[64];
+	// char buf_model[64], fd_hardware_num, fd_hardware_model, fd_hardware_model_plus[4], fd_hardware_rev[4], Model[64], rev[4];
 	// FILE * fp_Model;
 	// fp_Model = fopen("/proc/device-tree/model", "r");
 	// fgets(buf_model, 64, fp_Model);
 	// fclose(fp_Model);
-	// sscanf(buf_model,"Raspberry Pi %c Model %s Rev %s", &fd_hardware_num, &fd_hardware_model, &fd_hardware_rev);
-	// sprintf(Model, "Raspberry Pi %c%s", fd_hardware_num, fd_hardware_model);
-	
-	sprintf(IpInfo, "eth0:0.0.0.0");
+	// sscanf(buf_model,"Raspberry Pi %c Model %c %s %s %s", &fd_hardware_num, &fd_hardware_model, &fd_hardware_model_plus, &rev, &fd_hardware_rev);
+	// if(fd_hardware_model_plus[0] == 'P') sprintf(Model, "Raspberry Pi %c%c+ v%s", fd_hardware_num, fd_hardware_model, fd_hardware_rev);
+	// else sprintf(Model, "Raspberry Pi %c%c v%s", fd_hardware_num, fd_hardware_model, rev);
 	
 	while (1) {
 		if (sysinfo(&sys_info) != 0) {
@@ -131,6 +131,7 @@ int main(void) {
 				}
 				ifAddrStruct = ifAddrStruct->ifa_next;
 			}
+			
 			// ssd1306_drawText(0, 0, Model);
 			ssd1306_drawText(0, 0, CpuInfo);
 			ssd1306_drawText(56, 0, CpuTemp);
